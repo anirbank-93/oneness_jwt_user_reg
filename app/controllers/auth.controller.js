@@ -4,8 +4,20 @@ const { user: User, role: Role, refreshToken: RefreshToken } = db;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { Validator } = require('node-input-validator');
 
 exports.signup = (req, res) => {
+    const v = new Validator(req.body, {
+        username: 'required|minLength:3|alpha',
+        email: 'required|email|alpha',
+        password: 'required|minLength:6',
+        mobile: 'required'
+    })
+    let matched = v.check().then((val) => val)
+    if (!matched) {
+        return res.status(400).send({ status: false, error: v.errors });
+    }
+
     const user = new User({
         username: req.body.username,
         email: req.body.email,

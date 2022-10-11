@@ -4,8 +4,14 @@ const User = mongoose.model(
     "User",
     new mongoose.Schema({
         username: String,
-        email: String,
-        mobile: String,
+        email: {
+            type: String,
+            unique: true
+        },
+        mobile: {
+            type: Number,
+            unique: true
+        },
         password: String,
         roles: [
             {
