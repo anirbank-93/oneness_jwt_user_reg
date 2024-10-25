@@ -1,5 +1,7 @@
+require("dotenv").config();
+
 module.exports = {
-    secret: "abc12345",
-    jwtExpiration: 60,           // 1 min
-    jwtRefreshExpiration: 120,   // 2 mins
+    secret: process.env.PRIVATE_KEY,
+    jwtExpiration: process.env.JWT_TOKEN_EXPIRATION,
+    jwtRefreshExpiration: process.env.JWT_REFRESH_EXPIRATION,
 };
